@@ -731,11 +731,6 @@ print_file()
 #endif	/* defined(HASFSTRUCT) */
 
 	    (void) printf(" %*s", DevColW, DEVTTL);
-	    if (Foffset)
-		(void) printf(" %*s", SzOffColW, OFFTTL);
-	    else if (Fsize)
-		(void) printf(" %*s", SzOffColW, SZTTL);
-	    else
 		(void) printf(" %*s", SzOffColW, SZOFFTTL);
 	    if (Fnlink)
 		(void) printf(" %*s", NlColW, NLTTL);
@@ -1033,7 +1028,7 @@ print_file()
 		(void) printf(SzOffFmt_dv, SzOffColW, Lf->sz);
 #endif	/* defined(HASPRINTSZ) */
 
-	    else if (Lf->off_def) {
+	    if (Lf->off_def) {
 
 #if	defined(HASPRINTOFF)
 		cp = HASPRINTOFF(Lf, 0);
@@ -1293,12 +1288,7 @@ print_init()
 	PgidColW = strlen(PGIDTTL);
 	PidColW = strlen(PIDTTL);
 	PpidColW = strlen(PPIDTTL);
-	if (Fsize)
-	    SzOffColW = strlen(SZTTL);
-	else if (Foffset)
-	    SzOffColW = strlen(OFFTTL);
-	else
-	    SzOffColW = strlen(SZOFFTTL);
+	SzOffColW = strlen(SZTTL) + strlen(OFFTTL);
 
 #if	defined(HASTASKS)
 	TidColW = strlen(TIDTTL);
